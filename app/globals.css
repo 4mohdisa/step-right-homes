@@ -2,7 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-plus-jakarta: 'Plus Jakarta Sans', sans-serif;
+  --font-dm-sans: 'DM Sans', sans-serif;
+  
+  /* Brand Colors */
+  --primary-yellow: rgb(249, 202, 1);
+  --primary-yellow-light: rgb(255, 220, 60);
+  --primary-yellow-dark: rgb(220, 175, 0);
+  --black: #000000;
+  --white: #FFFFFF;
+  
+  /* Neutral Colors */
+  --neutral-50: #fafafa;
+  --neutral-100: #f5f5f5;
+  --neutral-200: #e5e5e5;
+  --neutral-300: #d4d4d4;
+  --neutral-400: #a3a3a3;
+  --neutral-500: #737373;
+  --neutral-600: #525252;
+  --neutral-700: #404040;
+  --neutral-800: #262626;
+  --neutral-900: #171717;
+}
 
 * {
   margin: 0;
@@ -10,10 +34,78 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
-  font-family: 'Roboto', sans-serif;
-  color: #000000;
-  background-color: #FFFFFF;
+  font-family: var(--font-dm-sans);
+  color: var(--black);
+  background-color: var(--white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-plus-jakarta);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* Custom Selection */
+::selection {
+  background-color: var(--primary-yellow);
+  color: var(--black);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--neutral-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--neutral-400);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-yellow);
+}
+
+@layer base {
+  /* Typography Scale */
+  .text-display {
+    @apply text-5xl md:text-6xl lg:text-7xl font-heading font-extrabold tracking-tight;
+  }
+  
+  .text-headline {
+    @apply text-4xl md:text-5xl font-heading font-bold tracking-tight;
+  }
+  
+  .text-title {
+    @apply text-3xl md:text-4xl font-heading font-bold;
+  }
+  
+  .text-subtitle {
+    @apply text-xl md:text-2xl font-heading font-semibold;
+  }
+  
+  .text-body-lg {
+    @apply text-lg font-body leading-relaxed;
+  }
+  
+  .text-body {
+    @apply text-base font-body leading-relaxed;
+  }
+  
+  .text-small {
+    @apply text-sm font-body;
+  }
 }
 
 @layer utilities {
@@ -28,4 +120,108 @@ body {
   .container-padding {
     @apply px-4 sm:px-6 md:px-8 lg:px-12 xl:px-16;
   }
+  
+  /* Gradient Text */
+  .text-gradient {
+    @apply bg-clip-text text-transparent bg-gradient-to-r from-primary-yellow to-primary-yellow-light;
+  }
+  
+  /* Glass Effect */
+  .glass {
+    @apply bg-white/80 backdrop-blur-lg border border-white/20;
+  }
+  
+  .glass-dark {
+    @apply bg-black/80 backdrop-blur-lg border border-white/10;
+  }
+  
+  /* Card Styles */
+  .card-base {
+    @apply bg-white rounded-2xl shadow-card transition-all duration-300;
+  }
+  
+  .card-hover {
+    @apply hover:shadow-card-hover hover:-translate-y-1;
+  }
+  
+  .card-interactive {
+    @apply card-base card-hover cursor-pointer;
+  }
+  
+  /* Button Base */
+  .btn-base {
+    @apply font-heading font-semibold rounded-xl transition-all duration-300 ease-out;
+  }
+  
+  /* Focus Ring */
+  .focus-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-primary-yellow focus:ring-offset-2;
+  }
+  
+  /* Animation Delays */
+  .delay-100 { animation-delay: 100ms; }
+  .delay-200 { animation-delay: 200ms; }
+  .delay-300 { animation-delay: 300ms; }
+  .delay-400 { animation-delay: 400ms; }
+  .delay-500 { animation-delay: 500ms; }
+  .delay-600 { animation-delay: 600ms; }
+  .delay-700 { animation-delay: 700ms; }
+  .delay-800 { animation-delay: 800ms; }
+  
+  /* Hover Lift Effect */
+  .hover-lift {
+    @apply transition-transform duration-300 hover:-translate-y-2;
+  }
+  
+  /* Yellow Accent Line */
+  .accent-line {
+    @apply relative;
+  }
+  
+  .accent-line::after {
+    content: '';
+    @apply absolute bottom-0 left-0 w-16 h-1 bg-primary-yellow rounded-full;
+  }
+  
+  /* Pattern Overlays */
+  .pattern-overlay {
+    @apply relative;
+  }
+  
+  .pattern-overlay::before {
+    content: '';
+    @apply absolute inset-0 bg-hero-pattern opacity-50 pointer-events-none;
+  }
+}
+
+/* Smooth Page Transitions */
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+main {
+  animation: pageEnter 0.4s ease-out;
+}
+
+/* Form Input Focus Animation */
+input:focus, textarea:focus, select:focus {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(249, 202, 1, 0.3);
+}
+
+/* Link Hover Effect */
+a {
+  transition: color 0.2s ease;
+}
+
+/* Image Placeholder Styling */
+.image-placeholder {
+  @apply bg-gradient-to-br from-neutral-100 to-neutral-200 flex items-center justify-center;
 }
